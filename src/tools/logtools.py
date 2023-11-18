@@ -44,6 +44,8 @@ STYLE_HIGHLIGHT_PURPLE = 105
 STYLE_HIGHLIGHT_CYAN = 106
 STYLE_HIGHLIGHT_WHITE = 107
 
+ENABLE_FANCY_LOG = True
+
 org_print = print
 
 def __buildStyleString(style: Union[int, List[int]]):
@@ -52,10 +54,12 @@ def __buildStyleString(style: Union[int, List[int]]):
     else:
         return "\033[{}m".format(style)
 
+def formatString(*content, style: Union[int, List[int]], sep=' '):
+    if not ENABLE_FANCY_LOG:
+        return sep.join(str(arg) for arg in content)
+    return ''.join([__buildStyleString(style), sep.join(str(arg) for arg in content), __buildStyleString(0)])
 
 def print(*args, style: Union[int, List[int]] = 0, sep=' ', end='\n', file=None):
+    if not ENABLE_FANCY_LOG:
+        org_print(*args, sep=sep, end=end, file=file)
     org_print(''.join([__buildStyleString(style), sep.join(str(arg) for arg in args), __buildStyleString(0)]), end=end, file=file)
-
-
-
-

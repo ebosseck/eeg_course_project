@@ -62,9 +62,7 @@ def unzip(filename: str, base_path: str):
         for info in zip_file.infolist():
             if info.is_dir():
                 continue
-            print(info.filename)
-            # zip_file.read(info, None)
-            #TODO: Extract zip file
+            writeFileBinary("".join([base_path, info.filename]), zip_file.read(info, None))
 
 def checksum(filename: str):
     """
