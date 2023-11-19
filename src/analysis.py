@@ -9,14 +9,18 @@ from tools.filetools import *
 
 FANCY_LOG = True # Set to false, in case log output contains lots of strange character combinations, but no colors.
 
-DATA_BASE_DIR = "../data/"
+#region Raw Data
 
+ENABLE_CHECK_RAW_DATA = True
+
+DATA_BASE_DIR = "../data/"
 # Alternate download url
 # https://github.com/OpenNeuroDatasets/ds003702/archive/refs/heads/master.zip
 DATA_DOWNLOAD_URL = "https://nemar.org/dataexplorer/download?filepath=/data/nemar/openneuro/zip_files/ds003702.zip"
-
 DATA_PATH = "empty.zip" # "ds003702.zip"
 DATA_CHECKSUM = '95f393b9c197cb4c54d7b56577438ef2ef552e2190198b9af350d774820125d45216d873f29cbd2c9c8212387f6d94825cff1c8ba6a7c76e8c3ba7894fbe8140'
+
+#endregion
 
 #endregion
 
@@ -148,4 +152,5 @@ def fetchData():
 
 if __name__ == "__main__":
     init()
-    fetchData()
+    if ENABLE_CHECK_RAW_DATA:
+        fetchData()
