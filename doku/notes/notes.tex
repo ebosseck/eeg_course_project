@@ -1,0 +1,61 @@
+\documentclass[12pt,pdftex,a4paper]{scrbook}
+\usepackage[utf8]{inputenc}
+\usepackage[british]{babel}
+
+\usepackage[hyphens]{url}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsfonts}
+\usepackage{listings}
+\usepackage[table]{xcolor}
+\usepackage{tcolorbox}
+
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\usepackage{hyperref}
+\usepackage{colortbl}
+\usepackage{multirow}
+
+\usepackage{longtable}
+
+\usepackage{tocloft}
+\usepackage{microtype}
+
+
+\advance\cftsecnumwidth .5em\relax
+\advance\cftsubsecindent 1em\relax
+\advance\cftsubsecnumwidth 1em\relax
+\advance\cftsubsubsecnumwidth 1em\relax
+
+\let\underscore\_
+\renewcommand{\_}{\underscore\-}
+
+\input{res/theme.tex}
+\input{res/languages.tex}
+\input{res/namespaces.tex}
+
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
+
+\newcommand{\namespace}{}
+\newcommand{\resolveNS}[1]{\namespace#1}
+\newcommand{\seclbl}[1]{\label{\resolveNS{#1}}}
+\newcommand{\secnref}[1]{\nameref{\resolveNS{#1}}}
+\newcommand{\chaprefns}[1]{\hyperref[\resolveNS{#1}]{Chapter~\ref*{\resolveNS{#1}}:~\nameref*{\resolveNS{#1}}}}
+
+\newcommand{\hysecnref}[2]{\nameref{#1#2}}
+\newcommand{\hychaprefns}[2]{\hyperref[#1#2]{Chapter~\ref*{#1#2}:~\nameref*{#1#2}}}
+
+
+\begin{document}
+	\thispagestyle{empty}
+	\title{EEG Project}
+	\subtitle{Notes}
+	\maketitle
+	
+	\chapter{Preprocessing}
+	\input{components/preparation.tex}
+	
+\end{document}

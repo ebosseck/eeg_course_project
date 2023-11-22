@@ -1,0 +1,102 @@
+% !TeX root = ../Usermanual.tex
+
+\definecolor{HEADDER}{rgb}{0.9, 0.9, 1}
+\definecolor{ODD}{gray}{1.0} 
+\definecolor{EVEN}{gray}{0.9}
+
+\definecolor{hint.info}      {rgb} {0, 0, 1}
+\definecolor{hint.example}   {rgb} {0, 1, 0} 
+\definecolor{hint.important} {rgb} {1, 0, 0}
+\definecolor{marking}{rgb}{0.6, 0, 0}
+
+\definecolor{prim.head} {rgb} {.6, .6, .6}
+\definecolor{prim.light} {rgb} {.8, .8, .8}
+\definecolor{prim.dark} {rgb} {1, 1, 1}
+
+\definecolor{send.head} {rgb} {.5, 1, .5}
+\definecolor{send.light} {rgb} {.6, 1, .6}
+\definecolor{send.dark} {rgb} {.8, 1, .8}
+
+\definecolor{recv.head} {rgb} {1, .5, .5}
+\definecolor{recv.light} {rgb} {1, .6, .6}
+\definecolor{recv.dark} {rgb} {1, .8, .8}
+
+\definecolor{evnt.head} {rgb} {.5, .5, 1} %{1, 1, .5}
+\definecolor{evnt.light} {rgb} {.6, .6, 1} %{1, 1, .6}
+\definecolor{evnt.dark} {rgb} {.8, .8, 1} %{1, 1, .8}
+
+\definecolor{linedeprecated}{rgb}{1, 1, .6}
+
+\definecolor{typedef.head} {rgb} {.5, .5, 1}
+\definecolor{typedef.light} {rgb} {.6, .6, 1}
+\definecolor{typedef.dark} {rgb} {.8, .8, 1}
+
+
+\newenvironment{info}{\begin{tcolorbox}[colback=hint.info!2,colframe=hint.info!70!black,title=\textsc{Info}]}{\end{tcolorbox}}
+\newenvironment{infocont}{\begin{tcolorbox}[colback=hint.info!2,colframe=hint.info!70!black,title=\textsc{Info (Cont.)}]}{\end{tcolorbox}}
+\newenvironment{important}{\begin{tcolorbox}[colback=hint.important!2,colframe=hint.important!70!black,title=\textsc{Important}]}{\end{tcolorbox}}
+\newenvironment{example}{\begin{tcolorbox}[colback=hint.example!2,colframe=hint.example!70!black,title=\textsc{Example}]}{\end{tcolorbox}}
+\newenvironment{examplecont}{\begin{tcolorbox}[colback=hint.example!2,colframe=hint.example!70!black,title=\textsc{Example (Cont.)}]}{\end{tcolorbox}}
+
+
+\newenvironment{requiredSkill}{\begin{tcolorbox}[colback=hint.example!2,colframe=hint.example!70!black,title=\textsc{Skills Required}]}{\end{tcolorbox}}
+
+\newenvironment{additional}{}{}
+
+
+\newcommand{\keyword}[1]{\textbf{\color{marking}#1}}
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\todo}[1]{\textbf{\color{red}TODO: #1}}
+
+\newcommand{\chapref}[1]{\hyperref[#1]{Chapter~\ref*{#1}:~\nameref*{#1}}}
+
+\newcommand{\sitem}[1]{\begin{itemize}
+		\item #1
+\end{itemize}}
+
+\newcommand{\plang}[1]{\textit{#1}}
+
+
+\newcommand*{\pngimg}[2]{
+	{\centering
+		\includegraphics[width=#1\textwidth]{img/#2.png}}
+}
+
+\newcommand*{\pdfimg}[2]{
+	{\centering
+		\includegraphics[width=#1\textwidth]{fig/fig_#2.pdf}}
+}
+
+\newcommand*{\pdffig}[3]{\begin{figure}[h!]
+		\centering
+		\includegraphics[width=#1\textwidth]{fig/fig_#2.pdf}
+		\caption{%
+			#3
+		}
+		\label{fig:fig_#2}
+\end{figure}}
+
+\newcommand{\sidebyside}[2]{\begin{minipage}{0.45\textwidth}
+		#1
+	\end{minipage} \hspace{0.1\textwidth}
+	\begin{minipage}{0.45\textwidth}
+		#2
+\end{minipage}}
+
+\newcommand*{\pdffigs}[4]{\begin{figure}[h!]
+		\centering
+		\includegraphics[width=#1\textwidth]{fig/fig_#2.pdf}
+		\includegraphics[width=#1\textwidth]{fig/fig_#3.pdf}
+		\caption{%
+			#4
+		}
+		\label{fig:fig_#2}
+\end{figure}}
+
+\setcounter{MaxMatrixCols}{20}
+%\rowcolors{2}{EVEN}{ODD}
+\newcommand{\mathbox}[1]{\text{\fbox{$\displaystyle#1$}}}
+
+
+\newcommand{\filenotfoundmsg}{File not included. Please contact original author.}
+\newcommand{\inputExists}[1]{\IfFileExists{#1}{\input{#1}}{\filenotfoundmsg}}
