@@ -4,6 +4,12 @@ import os.path
 import tools.logtools
 import data_handling.data_downloader as dl
 import data_handling.data_patcher as patch
+import data_handling as dh
+
+from mne_bids import BIDSPath, read_raw_bids, inspect_dataset
+
+import matplotlib
+matplotlib.use('qtagg')
 
 #region Configuration
 
@@ -19,6 +25,8 @@ DATA_BASE_DIR = "../data/"
 DATA_DOWNLOAD_URL = "https://nemar.org/dataexplorer/download?filepath=/data/nemar/openneuro/zip_files/ds003702.zip"
 DATA_PATH = "ds003702.zip"
 DATA_CHECKSUM = '95f393b9c197cb4c54d7b56577438ef2ef552e2190198b9af350d774820125d45216d873f29cbd2c9c8212387f6d94825cff1c8ba6a7c76e8c3ba7894fbe8140'
+
+
 
 #endregion
 
@@ -61,13 +69,13 @@ SUBJECT_IDS = [ 1,  2,  3,  4,  5,  6,  7,      9, 10,
 def init():
     tools.logtools.ENABLE_FANCY_LOG = FANCY_LOG
 
-    dl.DATA_BASE_DIR = DATA_BASE_DIR
-    dl.DATA_DOWNLOAD_URL = DATA_DOWNLOAD_URL
-    dl.DATA_PATH = DATA_PATH
-    dl.DATA_CHECKSUM = DATA_CHECKSUM
+    dh.DATA_BASE_DIR = DATA_BASE_DIR
+    dh.DATA_DOWNLOAD_URL = DATA_DOWNLOAD_URL
+    dh.DATA_PATH = DATA_PATH
+    dh.DATA_CHECKSUM = DATA_CHECKSUM
 
-    dl.PER_SUBJECT_FILES = PER_SUBJECT_FILES
-    dl.SUBJECT_IDS = SUBJECT_IDS
+    dh.PER_SUBJECT_FILES = PER_SUBJECT_FILES
+    dh.SUBJECT_IDS = SUBJECT_IDS
 #endregion
 
 #region Preprocessing
@@ -85,3 +93,11 @@ if __name__ == "__main__":
     if ENABLE_CHECK_RAW_DATA:
         dl.fetchData()
     patch.patchAllFiles() # Correct errors made when exporting data
+
+    bids_root = "../data/ds003702/"
+
+    bids_path = BIDSPath(subject='01', task="SocialMemoryCuing",
+                         datatype='eeg', suffix='eeg',
+                         root=bids_root)
+
+    inspect_dataset(bids_path, l_freq=2, h_freq=30)
