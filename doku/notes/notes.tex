@@ -1,12 +1,45 @@
+%TeX-program=pdflatex
 \documentclass[12pt,pdftex,a4paper]{scrbook}
-\usepackage[utf8]{inputenc}
-\usepackage[british]{babel}
+
+% note: this document is created for pdfLaTeX only.
+
+% add checkup for determining used compiler
+\usepackage{ifxetex,ifluatex}
+\newif\ifxetexorluatex
+\ifxetex
+  \xetexorluatextrue
+\else
+  \ifluatex
+    \xetexorluatextrue
+  \else
+    \xetexorluatexfalse
+  \fi
+\fi
+
+% run compiler dependent code
+\ifxetexorluatex
+  \usepackage{polyglossia}
+	 	\setmainlanguage{british}
+   	% \setmainfont{TeX Gyre Pagella}
+	\usepackage{graphicx}
+\else
+	\usepackage[T1]{fontenc} % add some unicode support
+	\usepackage[utf8]{inputenc} % or utf8x
+	
+	\usepackage{textcomp} % add some unicode support
+	\DeclareUnicodeCharacter{202F}{\,} % add short protected unicode letter
+	\DeclareUnicodeCharacter{2264}{\ensuremath{\leq}}
+
+	\usepackage[british]{babel}
+	\usepackage[pdftex]{graphicx}
+
+\fi
 
 \usepackage[hyphens]{url}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage[pdftex]{graphicx}
 \usepackage{amsfonts}
+
 \usepackage{listings}
 \usepackage[table]{xcolor}
 \usepackage{tcolorbox}
@@ -14,10 +47,8 @@
 \usepackage{hyperref}
 \usepackage{fancyhdr}
 
-\usepackage{hyperref}
-\usepackage{colortbl}
+% \usepackage{colortbl} % already loaded by xcolor with extra `table`
 \usepackage{multirow}
-
 \usepackage{longtable}
 
 \usepackage{tocloft}
