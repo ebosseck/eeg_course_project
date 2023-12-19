@@ -1115,7 +1115,7 @@ if `None`, no baseline correction is applied.
     ```
 """
 
-contrasts: Iterable[Union[Tuple[str, str], ArbitraryContrast]] = []
+contrasts: Iterable[Union[Tuple[str, str], ArbitraryContrast]] = [('s3022', 's3042')]
 """
 The conditions to contrast via a subtraction of ERPs / ERFs. The list elements
 can either be tuples or dictionaries (or a mix of both). Each element in the
@@ -1642,7 +1642,7 @@ highlight induced activity.
 # TIME-FREQUENCY CSP
 # ------------------
 
-decoding_csp: bool = False
+decoding_csp: bool = True
 """
 Whether to run decoding via Common Spatial Patterns (CSP) analysis on the
 data. CSP takes as input data covariances that are estimated on different
