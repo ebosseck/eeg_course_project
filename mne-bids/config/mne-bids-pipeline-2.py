@@ -1027,10 +1027,10 @@ unknown metadata column, a warning will be emitted and all epochs will be kept.
     ```
 """  # noqa: E501
 
-conditions: Optional[Union[Iterable[str], Dict[str, str]]] = {
-    "object_shown_avatar": "s3022",
-    "object_shown_sticks": "s3042",
-}
+conditions: Optional[Union[Iterable[str], Dict[str, str]]] = [
+    "Stimulus/s3022", # "object_shown_avatar"
+    "Stimulus/s3042", # "object_shown_sticks"
+]
 """
 The time-locked events based on which to create evoked responses.
 This can either be name of the experimental condition as specified in the
