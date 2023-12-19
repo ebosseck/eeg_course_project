@@ -342,7 +342,7 @@ channel. To use multiple channels as reference, set to a list of channel names.
     ```
 """
 
-eeg_template_montage: Optional[str] = 'standard_1005'
+eeg_template_montage: Optional[str] = "standard_1005"
 """
 In situations where you wish to process EEG data and no individual
 digitization points (measured channel locations) are available, you can apply
@@ -956,7 +956,10 @@ unknown metadata column, a warning will be emitted and all epochs will be kept.
     ```
 """  # noqa: E501
 
-conditions: Optional[Union[Iterable[str], Dict[str, str]]] = ['Stimulus/s3022', 'Stimulus/s3042']
+conditions: Optional[Union[Iterable[str], Dict[str, str]]] = [
+    "Stimulus/s3022",
+    "Stimulus/s3042",
+]
 """
 The time-locked events based on which to create evoked responses.
 This can either be name of the experimental condition as specified in the
@@ -1093,13 +1096,13 @@ epoched, and therefore the conditions should either match or be subsets of
 ##############################################################################
 # ARTIFACT REMOVAL
 # ----------------
-# 
+#
 # You can choose between ICA and SSP to remove eye and heart artifacts.
 # SSP: https://mne-tools.github.io/stable/auto_tutorials/plot_artifacts_correction_ssp.html?highlight=ssp # noqa
 # ICA: https://mne-tools.github.io/stable/auto_tutorials/plot_artifacts_correction_ica.html?highlight=ica # noqa
 # if you choose ICA, run steps 5a and 6a
 # if you choose SSP, run steps 5b and 6b
-# 
+#
 # Currently you cannot use both.
 
 spatial_filter: Optional[Literal["ssp", "ica"]] = "ica"
@@ -1511,7 +1514,7 @@ locations set.
 # TIME-FREQUENCY
 # --------------
 
-time_frequency_conditions: Iterable[str] = ['Stimulus/s3022', 'Stimulus/s3042']
+time_frequency_conditions: Iterable[str] = ["Stimulus/s3022", "Stimulus/s3042"]
 """
 The conditions to compute time-frequency decomposition on.
 
@@ -1978,8 +1981,8 @@ empty list, `[]`.
 """
 
 ##############################################################################
-#Report generation
-#-----------------
+# Report generation
+# -----------------
 
 report_evoked_n_time_points: Optional[int] = None
 """
@@ -2006,8 +2009,8 @@ in the report. If `None`, it defaults to the current default in MNE-Python.
 """
 
 ##############################################################################
-#Execution
-#---------
+# Execution
+# ---------
 
 n_jobs: int = 1
 """
