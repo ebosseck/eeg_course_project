@@ -50,7 +50,7 @@ the processing results. If `None`, this will be
      set [`subjects_dir`][mne_bids_pipeline._config.subjects_dir] as well.
 """
 
-subjects_dir: Optional[PathLike] = None
+subjects_dir: Optional[PathLike] = "./data/ds003702/"
 """
 Path to the directory that contains the FreeSurfer reconstructions of all
 subjects. Specifically, this defines the `SUBJECTS_DIR` that is used by
@@ -1751,12 +1751,12 @@ If `None`, no cropping.
 # ----------------------------
 
 
-run_source_estimation: bool = False
+run_source_estimation: bool = True
 """
 Whether to run source estimation processing steps if not explicitly requested.
 """
 
-use_template_mri: Optional[str] = None
+use_template_mri: Optional[str] = "fsaverage"
 """
 Whether to use a template MRI subject such as FreeSurfer's `fsaverage` subject.
 This may come in handy if you don't have individual MR scans of your
