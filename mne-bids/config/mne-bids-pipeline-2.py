@@ -150,6 +150,9 @@ runs. In this case, specify the runs, or pass an empty list to disable raw PSD
 plotting.
 """
 
+# # For debugging purposes, select subset of subjects
+# subjects_range = [1, 4] # valid: 1..50
+# subjects: Union[Iterable[str], Literal["all"]] = [f"{index:02d}" for index in range(subjects_range[0], subjects_range[1] + 1) if index not in [8, 42, 47]] # "all"
 subjects: Union[Iterable[str], Literal["all"]] = "all"
 """
 Subjects to analyze. If `'all'`, include all subjects. To only
