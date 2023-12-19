@@ -1670,11 +1670,13 @@ If `None`, do not perform **time-frequency** analysis, and only run CSP on
 """
 
 decoding_csp_freqs: Dict[str, ArrayLike] = {
-    "custom": [
-        time_frequency_freq_min,
-        (time_frequency_freq_max + time_frequency_freq_min) / 2,  # noqa: E501
-        time_frequency_freq_max,
-    ]
+    "theta": [3,  7],
+    "alpha": [8, 12]
+    # "custom": [
+    #     time_frequency_freq_min,
+    #     (time_frequency_freq_max + time_frequency_freq_min) / 2,  # noqa: E501
+    #     time_frequency_freq_max,
+    # ]
 }
 """
 The edges of the frequency bins to use for CSP decoding.
