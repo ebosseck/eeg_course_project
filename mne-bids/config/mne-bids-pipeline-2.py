@@ -39,7 +39,7 @@ bids_root: Optional[PathLike] = "../data/ds003702/"
      ```
 """
 
-deriv_root: Optional[PathLike] = None
+deriv_root: Optional[PathLike] = None # "./data/derivatives/mne-bids-pipeline-alpha"
 """
 The root of the derivatives directory in which the pipeline will store
 the processing results. If `None`, this will be
@@ -1350,7 +1350,7 @@ it converges quicker than the other algorithms; but e.g. for FastICA, this
 limit may be too low to achieve convergence.
 """
 
-ica_n_components: Optional[Union[float, int]] = 0.8
+ica_n_components: Optional[Union[float, int]] = 0.85
 """
 MNE conducts ICA as a sort of a two-step procedure: First, a PCA is run
 on the data (trying to exclude zero-valued components in rank-deficient
