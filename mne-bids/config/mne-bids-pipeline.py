@@ -1034,8 +1034,8 @@ unknown metadata column, a warning will be emitted and all epochs will be kept.
 """  # noqa: E501
 
 conditions: Optional[Union[Iterable[str], Dict[str, str]]] = [
-    "Stimulus/s3022", # "object_shown_avatar"
-    "Stimulus/s3042", # "object_shown_sticks"
+    "s3022", # "object_shown_avatar"
+    "s3042", # "object_shown_sticks"
 ]
 """
 The time-locked events based on which to create evoked responses.
@@ -1591,7 +1591,7 @@ locations set.
 # TIME-FREQUENCY
 # --------------
 
-time_frequency_conditions: Iterable[str] = ["Stimulus/s3022", "Stimulus/s3042"]
+time_frequency_conditions: Iterable[str] = ["s3022", "s3042"]
 """
 The conditions to compute time-frequency decomposition on.
 
