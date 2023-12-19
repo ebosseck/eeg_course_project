@@ -342,11 +342,6 @@ channel. To use multiple channels as reference, set to a list of channel names.
     ```
 """
 
-# get coordinates of electrodes
-# see https://stefanappelhoff.com/eeg_positions/auto_examples/use_mne.html
-from eeg_positions import get_elec_coords
-coords = get_elec_coords(system="1010", as_mne_montage=True)
-
 eeg_template_montage: Optional[str] = "standard_1005"
 """
 In situations where you wish to process EEG data and no individual
@@ -410,7 +405,33 @@ builtin_montages = [
 
 
 # drop non-existing channels to allow for running the pipeline with given 10-10 montage
-drop_channels: Iterable[str] = []
+drop_channels: Iterable[str] = [
+    "EOG",
+    "BIP1",
+    "BIP2",
+    "BIP3",
+    "BIP4",
+    "BIP5",
+    "BIP6",
+    "BIP7",
+    "BIP8",
+    "BIP9",
+    "BIP10",
+    "BIP11",
+    "BIP12",
+    "BIP13",
+    "BIP14",
+    "BIP15",
+    "BIP16",
+    "BIP17",
+    "BIP18",
+    "BIP19",
+    "BIP20",
+    "BIP21",
+    "BIP22",
+    "BIP23",
+    "BIP24",
+]
 """
 Names of channels to remove from the data. This can be useful, for example,
 if you have added a new bipolar channel via `eeg_bipolar_channels` and now wish
