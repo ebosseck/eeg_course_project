@@ -3,3 +3,44 @@
 \begin{itemize}
 	\item Filenames seem to have been renamed \textbf{after} exporting to fit the bids file naming convention, causing inconsistency in vhdr and vmrk files that needs to be fixed. This seems to be a design limitation of bids requiring hard coding file names in vhdr and vmrk files. 
 \end{itemize}
+
+\section{Lecture Notes from 2023-11-23}
+
+	\begin{itemize}
+		\item Re-referencing
+			\newline • note: In practice, average referencing (?Does this equal global mean?) seems to be a good idea for more than 60 electrodes.
+			\newline • note: For measuring e. g. \texttt{P3}, referencing towards ?mastoid? could result in better results (even with > 60 electrodes).
+			\newline • If re-referencing is applied to a single electrode (e. g. \texttt{FCz}), the difference between zero-vector (all samples of the channel are zero) to global mean of all channels at global mean re-referencing is the \texttt{FCz} channel signal.
+		\item Downsampling
+			\newline • lowest \(f_\mathrm{sample}\) in real study: 250 Hz
+			\newline • here: e. g. 128 Hz or similar, since the computations will then run a lot faster on student computers
+			\newline • note: mention the reason for (strong) downsampling in the report
+			\newline • note: Empirical mode decomposition can benefit from higher frequencies than e. g. 30 Hz → sample rate of > 80 Hz could make sense.
+		\item Detrending / Baseline Correction / High Pass Filtering
+			\newline • fit linear or quadratic function to data (whole duration → about 1 h)
+			\newline • → similar to high pass filter at 0.0…01 Hz
+			\newline • simpler version: apply high pass filter at e. g. 0.1 Hz
+			\newline • note: If a high pass filter is applied, baseline correction = subtracting channel mean = removing DC offset \emph{does not} make any sense on whole-length signals.
+			\newline • note: After applying epoching, applying baseline correction = subtracting channel mean = removing DC offset \emph{can} make sense.
+		\item ICA
+			\newline • run ICA decomposition on filtered signals with high pass filter at about 1-2 Hz
+			\newline • The ICA can then get applied on the signals only filtered with high pass filter at \(≤ 0.5 Hz\), if wanted by students/researchers
+			\newline • note: ICA without high pass filter will not look good.
+			\newline • note: Use IClabel software for automatic labelling of ICA components.
+			\newline • Picard or (normal one, iterative) are a lot better than FastICA.
+	\end{itemize}
+
+\section{Analysis}
+
+	\begin{itemize}
+		\item \(t\) Test
+			\newline • \(t\) test is somehow also multiple regression
+	\end{itemize}
+
+\section{Off-topic}
+
+	\begin{itemize}
+		\item Slides
+			\newline • Put the name giving animal on the slides. (just4fun)
+	\end{itemize}
+

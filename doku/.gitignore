@@ -1,0 +1,7 @@
+# some temporary TeX files
+*.aux
+*.out
+*.synctex.gz
+*.aup
+*.log
+*.toc
