@@ -2091,7 +2091,7 @@ in the report. If `None`, it defaults to the current default in MNE-Python.
 # Execution
 # ---------
 
-n_jobs: int = 1
+n_jobs: int = 4
 """
 Specifies how many subjects you want to process in parallel. If `1`, disables
 parallel processing.
