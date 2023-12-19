@@ -342,6 +342,11 @@ channel. To use multiple channels as reference, set to a list of channel names.
     ```
 """
 
+# get coordinates of electrodes
+# see https://stefanappelhoff.com/eeg_positions/auto_examples/use_mne.html
+from eeg_positions import get_elec_coords
+coords = get_elec_coords(system="1010", as_mne_montage=True)
+
 eeg_template_montage: Optional[str] = "standard_1005"
 """
 In situations where you wish to process EEG data and no individual
@@ -370,6 +375,41 @@ https://mne.tools/stable/generated/mne.channels.make_standard_montage.html
     ```
 """
 
+
+# mne.channels.get_builtin_montages()
+builtin_montages = [
+  'standard_1005',
+  'standard_1020',
+  'standard_alphabetic',
+  'standard_postfixed',
+  'standard_prefixed',
+  'standard_primed',
+  'biosemi16',
+  'biosemi32',
+  'biosemi64',
+  'biosemi128',
+  'biosemi160',
+  'biosemi256',
+  'easycap-M1',
+  'easycap-M10',
+  'easycap-M43',
+  'EGI_256',
+  'GSN-HydroCel-32',
+  'GSN-HydroCel-64_1.0',
+  'GSN-HydroCel-65_1.0',
+  'GSN-HydroCel-128',
+  'GSN-HydroCel-129',
+  'GSN-HydroCel-256',
+  'GSN-HydroCel-257',
+  'mgh60',
+  'mgh70',
+  'artinis-octamon',
+  'artinis-brite23',
+  'brainproducts-RNP-BA-128'
+]
+
+
+# drop non-existing channels to allow for running the pipeline with given 10-10 montage
 drop_channels: Iterable[str] = []
 """
 Names of channels to remove from the data. This can be useful, for example,
