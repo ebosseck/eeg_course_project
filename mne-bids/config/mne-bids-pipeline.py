@@ -151,9 +151,12 @@ plotting.
 """
 
 # # For debugging purposes, select subset of subjects
-# subjects_range = [1, 4] # valid: 1..50
-# subjects: Union[Iterable[str], Literal["all"]] = [f"{index:02d}" for index in range(subjects_range[0], subjects_range[1] + 1) if index not in [8, 42, 47]] # "all"
-subjects: Union[Iterable[str], Literal["all"]] = "all"
+subjects_range = [1, 50] # valid: 1..50
+subjects_skipped = [31, 37] # 31: reacton to stimulus before visibility of object, 37: unknown compilation problem
+subjects_missing = [8, 42, 47] # do not change
+subjects_skipped += subjects_missing
+subjects: Union[Iterable[str], Literal["all"]] = [f"{index:02d}" for index in range(subjects_range[0], subjects_range[1] + 1) if index not in subjects_skipped] # "all"
+# subjects: Union[Iterable[str], Literal["all"]] = "all"
 """
 Subjects to analyze. If `'all'`, include all subjects. To only
 include a subset of subjects, pass a list of their identifiers. Even
