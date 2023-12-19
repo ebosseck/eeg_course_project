@@ -39,7 +39,7 @@ bids_root: Optional[PathLike] = "../data/ds003702/"
      ```
 """
 
-deriv_root: Optional[PathLike] = None # "./data/derivatives/mne-bids-pipeline-alpha"
+deriv_root: Optional[PathLike] = "./data/derivatives/mne-bids-pipeline-beta"
 """
 The root of the derivatives directory in which the pipeline will store
 the processing results. If `None`, this will be
@@ -1598,7 +1598,7 @@ The conditions to compute time-frequency decomposition on.
     ```
 """
 
-time_frequency_freq_min: Optional[float] = 8.0
+time_frequency_freq_min: Optional[float] = 3.0
 """
 Minimum frequency for the time frequency analysis, in Hz.
 ???+ example "Example"
@@ -1607,7 +1607,7 @@ Minimum frequency for the time frequency analysis, in Hz.
     ```
 """
 
-time_frequency_freq_max: Optional[float] = 12.0
+time_frequency_freq_max: Optional[float] = 7.0
 """
 Maximum frequency for the time frequency analysis, in Hz.
 ???+ example "Example"

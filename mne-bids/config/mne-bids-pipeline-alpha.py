@@ -39,7 +39,7 @@ bids_root: Optional[PathLike] = "../data/ds003702/"
      ```
 """
 
-deriv_root: Optional[PathLike] = None # "./data/derivatives/mne-bids-pipeline-alpha"
+deriv_root: Optional[PathLike] = "./data/derivatives/mne-bids-pipeline-alpha"
 """
 The root of the derivatives directory in which the pipeline will store
 the processing results. If `None`, this will be
