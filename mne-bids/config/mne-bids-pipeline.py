@@ -1759,7 +1759,7 @@ If `None`, no cropping.
 # ----------------------------
 
 
-run_source_estimation: bool = False
+run_source_estimation: bool = True
 """
 Whether to run source estimation processing steps if not explicitly requested.
 """
