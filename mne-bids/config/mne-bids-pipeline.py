@@ -1733,7 +1733,7 @@ Baseline period to use for the time-frequency analysis. If `None`, no baseline.
     ```
 """
 
-time_frequency_baseline_mode: str = "mean"
+time_frequency_baseline_mode: str = "logratio"
 """
 Baseline mode to use for the time-frequency analysis. Can be chosen among:
 "mean" or "ratio" or "logratio" or "percent" or "zscore" or "zlogratio".
