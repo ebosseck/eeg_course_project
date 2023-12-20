@@ -837,7 +837,7 @@ The low-frequency cut-off in the highpass filtering step.
 Keep it `None` if no highpass filtering should be applied.
 """
 
-h_freq: Optional[float] = 30.0
+h_freq: Optional[float] = 32.0
 """
 The high-frequency cut-off in the lowpass filtering step.
 Keep it `None` if no lowpass filtering should be applied.
