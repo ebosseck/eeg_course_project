@@ -15,7 +15,7 @@ from mne_bids_pipeline.typing import PathLike, ArbitraryContrast
 # Config parameters
 # -----------------
 
-study_name: str = "EEG-course-project"
+study_name: str = ""
 """
  Specify the name of your study. It will be used to populate filenames for
  saving the analysis results.
@@ -26,7 +26,7 @@ study_name: str = "EEG-course-project"
      ```
 """
 
-bids_root: Optional[PathLike] = "../data/ds003702/"
+bids_root: Optional[PathLike] = None
 """
  Specify the BIDS root directory. Pass an empty string or ```None` to use
  the value specified in the `BIDS_ROOT` environment variable instead.
@@ -88,7 +88,7 @@ The sessions to process. If `'all'`, will process all sessions found in the
 BIDS dataset.
 """
 
-task: str = "SocialMemoryCuing"
+task: str = ""
 """
 The task to process.
 """
@@ -200,7 +200,7 @@ is required if you wish to use the resting-state recording to estimate noise
 covariance (via `noise_cov='rest'`).
 """
 
-ch_types: Iterable[Literal["meg", "mag", "grad", "eeg"]] = ["eeg"]
+ch_types: Iterable[Literal["meg", "mag", "grad", "eeg"]] = []
 """
 The channel types to consider.
 
@@ -342,7 +342,7 @@ channel. To use multiple channels as reference, set to a list of channel names.
     ```
 """
 
-eeg_template_montage: Optional[str] = 'standard_1005'
+eeg_template_montage: Optional[str] = None
 """
 In situations where you wish to process EEG data and no individual
 digitization points (measured channel locations) are available, you can apply
@@ -425,8 +425,8 @@ compliant (e.g., "Did not find any meg.json..."), you can set this to
 """
 
 ##############################################################################
-# BREAK DETECTION
-# ---------------
+BREAK DETECTION
+---------------
 
 find_breaks: bool = False
 """
@@ -526,9 +526,9 @@ pre-stimulus period as bad.
 """
 
 ##############################################################################
-# MAXWELL FILTER PARAMETERS
-# -------------------------
-# done in 01-import_and_maxfilter.py
+MAXWELL FILTER PARAMETERS
+-------------------------
+done in 01-import_and_maxfilter.py
 
 find_flat_channels_meg: bool = False
 """
@@ -715,9 +715,9 @@ Only used when [`use_maxwell_filter=True`][mne_bids_pipeline._config.use_maxwell
 """  # noqa: E501
 
 ##############################################################################
-# STIMULATION ARTIFACT
-# --------------------
-# used in 01-import_and_maxfilter.py
+STIMULATION ARTIFACT
+--------------------
+used in 01-import_and_maxfilter.py
 
 fix_stim_artifact: bool = False
 """
@@ -750,17 +750,17 @@ End time of the interpolation window in seconds.
 """
 
 ##############################################################################
-# FREQUENCY FILTERING & RESAMPLING
-# --------------------------------
-# done in 02-frequency_filter.py
+FREQUENCY FILTERING & RESAMPLING
+--------------------------------
+done in 02-frequency_filter.py
 
-l_freq: Optional[float] = 1.0
+l_freq: Optional[float] = None
 """
 The low-frequency cut-off in the highpass filtering step.
 Keep it `None` if no highpass filtering should be applied.
 """
 
-h_freq: Optional[float] = 30.0
+h_freq: Optional[float] = 40.0
 """
 The high-frequency cut-off in the lowpass filtering step.
 Keep it `None` if no lowpass filtering should be applied.
@@ -809,7 +809,7 @@ notch_widths: Optional[Union[float, Iterable[float]]] = None
 Specifies the width of each stop band. `None` uses the MNE default.
 """
 
-raw_resample_sfreq: Optional[float] = 80.0
+raw_resample_sfreq: Optional[float] = None
 """
 Specifies at which sampling frequency the data should be resampled.
 If `None`, then no resampling will be done.
@@ -822,8 +822,8 @@ If `None`, then no resampling will be done.
 """
 
 ##############################################################################
-# DECIMATION
-# ----------
+DECIMATION
+----------
 
 epochs_decim: int = 1
 """
@@ -844,8 +844,8 @@ can be used for resampling raw data. `1` means no decimation.
 
 
 ##############################################################################
-# RENAME EXPERIMENTAL EVENTS
-# --------------------------
+RENAME EXPERIMENTAL EVENTS
+--------------------------
 
 rename_events: dict = dict()
 """
@@ -872,8 +872,8 @@ to only get a warning instead, or `'ignore'` to ignore it completely.
 """
 
 ##############################################################################
-# HANDLING OF REPEATED EVENTS
-# ---------------------------
+HANDLING OF REPEATED EVENTS
+---------------------------
 
 event_repeated: Literal["error", "drop", "merge"] = "error"
 """
@@ -891,8 +891,8 @@ this to `'merge'`.
 """
 
 ##############################################################################
-# EPOCHING
-# --------
+EPOCHING
+--------
 
 epochs_metadata_tmin: Optional[float] = None
 """
@@ -956,7 +956,7 @@ unknown metadata column, a warning will be emitted and all epochs will be kept.
     ```
 """  # noqa: E501
 
-conditions: Optional[Union[Iterable[str], Dict[str, str]]] = ['Stimulus/s3022', 'Stimulus/s3042']
+conditions: Optional[Union[Iterable[str], Dict[str, str]]] = None
 """
 The time-locked events based on which to create evoked responses.
 This can either be name of the experimental condition as specified in the
@@ -1091,18 +1091,18 @@ epoched, and therefore the conditions should either match or be subsets of
 """
 
 ##############################################################################
-# ARTIFACT REMOVAL
-# ----------------
-# 
-# You can choose between ICA and SSP to remove eye and heart artifacts.
-# SSP: https://mne-tools.github.io/stable/auto_tutorials/plot_artifacts_correction_ssp.html?highlight=ssp # noqa
-# ICA: https://mne-tools.github.io/stable/auto_tutorials/plot_artifacts_correction_ica.html?highlight=ica # noqa
-# if you choose ICA, run steps 5a and 6a
-# if you choose SSP, run steps 5b and 6b
-# 
-# Currently you cannot use both.
+ARTIFACT REMOVAL
+----------------
 
-spatial_filter: Optional[Literal["ssp", "ica"]] = "ica"
+You can choose between ICA and SSP to remove eye and heart artifacts.
+SSP: https://mne-tools.github.io/stable/auto_tutorials/plot_artifacts_correction_ssp.html?highlight=ssp # noqa
+ICA: https://mne-tools.github.io/stable/auto_tutorials/plot_artifacts_correction_ica.html?highlight=ica # noqa
+if you choose ICA, run steps 5a and 6a
+if you choose SSP, run steps 5b and 6b
+
+Currently you cannot use both.
+
+spatial_filter: Optional[Literal["ssp", "ica"]] = None
 """
 Whether to use a spatial filter to detect and remove artifacts. The BIDS
 Pipeline offers the use of signal-space projection (SSP) and independent
@@ -1130,8 +1130,8 @@ Minimal number of EOG epochs needed to compute SSP or ICA rejection.
 """
 
 
-# Rejection based on SSP
-# ~~~~~~~~~~~~~~~~~~~~~~
+Rejection based on SSP
+~~~~~~~~~~~~~~~~~~~~~~
 n_proj_eog: Dict[str, float] = dict(n_mag=1, n_grad=1, n_eeg=1)
 """
 Number of SSP vectors to create for EOG artifacts for each channel type.
@@ -1207,8 +1207,8 @@ Channel to use for ECG SSP. Can be useful when the autodetected ECG channel
 is not reliable.
 """
 
-# Rejection based on ICA
-# ~~~~~~~~~~~~~~~~~~~~~~
+Rejection based on ICA
+~~~~~~~~~~~~~~~~~~~~~~
 ica_reject: Optional[Dict[str, float]] = None
 """
 Peak-to-peak amplitude limits to exclude epochs from ICA fitting.
@@ -1317,8 +1317,8 @@ that more ICs will be identified as EOG-related. If too low, the
 false-alarm rate increases dramatically.
 """
 
-# Rejection based on peak-to-peak amplitude
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Rejection based on peak-to-peak amplitude
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 reject: Optional[Union[Dict[str, float], Literal["autoreject_global"]]] = None
 """
@@ -1385,8 +1385,8 @@ with the last time point.
 """
 
 ##############################################################################
-# DECODING
-# --------~~~~~~~~~~~
+DECODING
+--------
 
 decode: bool = True
 """
@@ -1491,8 +1491,8 @@ used in the permutation test which takes place after forming the clusters.
 """
 
 ##############################################################################
-# GROUP AVERAGE SENSORS
-# ---------------------
+GROUP AVERAGE SENSORS
+---------------------
 
 interpolate_bads_grand_average: bool = True
 """
@@ -1508,10 +1508,10 @@ locations set.
 """
 
 ##############################################################################
-# TIME-FREQUENCY
-# --------------
+TIME-FREQUENCY
+--------------
 
-time_frequency_conditions: Iterable[str] = ['Stimulus/s3022', 'Stimulus/s3042']
+time_frequency_conditions: Iterable[str] = []
 """
 The conditions to compute time-frequency decomposition on.
 
@@ -1521,7 +1521,7 @@ The conditions to compute time-frequency decomposition on.
     ```
 """
 
-time_frequency_freq_min: Optional[float] = 8.0
+time_frequency_freq_min: Optional[float] = 8
 """
 Minimum frequency for the time frequency analysis, in Hz.
 ???+ example "Example"
@@ -1530,7 +1530,7 @@ Minimum frequency for the time frequency analysis, in Hz.
     ```
 """
 
-time_frequency_freq_max: Optional[float] = 12.0
+time_frequency_freq_max: Optional[float] = 40
 """
 Maximum frequency for the time frequency analysis, in Hz.
 ???+ example "Example"
@@ -1559,8 +1559,8 @@ highlight induced activity.
 """
 
 ##############################################################################
-# TIME-FREQUENCY CSP
-# ------------------
+TIME-FREQUENCY CSP
+------------------
 
 decoding_csp: bool = False
 """
@@ -1677,7 +1677,7 @@ If `None`, no cropping.
 # ----------------------------
 
 
-run_source_estimation: bool = False
+run_source_estimation: bool = True
 """
 Whether to run source estimation processing steps if not explicitly requested.
 """
