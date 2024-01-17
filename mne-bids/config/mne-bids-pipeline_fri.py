@@ -71,7 +71,7 @@ FreeSurfer.
      and want to run the source analysis steps.
 """
 
-interactive: bool = False
+interactive: bool = False # True
 """
 If True, the steps will provide some interactive elements, such as
 figures. If running the steps from a notebook or Spyder,
@@ -223,7 +223,7 @@ The channel types to consider.
     ```
 """
 
-data_type: Optional[Literal["meg", "eeg"]] = None
+data_type: Optional[Literal["meg", "eeg"]] = "eeg"
 """
 The BIDS data type.
 
@@ -886,7 +886,7 @@ notch_widths: Optional[Union[float, Iterable[float]]] = None
 Specifies the width of each stop band. `None` uses the MNE default.
 """
 
-raw_resample_sfreq: Optional[float] = 80.0
+raw_resample_sfreq: Optional[float] = 100.0
 """
 Specifies at which sampling frequency the data should be resampled.
 If `None`, then no resampling will be done.
@@ -1034,8 +1034,8 @@ unknown metadata column, a warning will be emitted and all epochs will be kept.
 """  # noqa: E501
 
 conditions: Optional[Union[Iterable[str], Dict[str, str]]] = [
-    "s3022", # "object_shown_avatar"
-    "s3042", # "object_shown_sticks"
+    "avatar", # "s3022", # "object_shown_avatar"
+    "sticks" # "s3042", # "object_shown_sticks"
 ]
 """
 The time-locked events based on which to create evoked responses.
@@ -1069,7 +1069,7 @@ processing resting-state data. If left as `None` and
                   'incorrect': 'response/incorrect'}
 """  # noqa : E501
 
-epochs_tmin: float = -0.2
+epochs_tmin: float = -1.0
 """
 The beginning of an epoch, relative to the respective event, in seconds.
 
@@ -1079,7 +1079,7 @@ The beginning of an epoch, relative to the respective event, in seconds.
     ```
 """
 
-epochs_tmax: float = 0.5
+epochs_tmax: float = 1.0
 """
 The end of an epoch, relative to the respective event, in seconds.
 ???+ example "Example"
@@ -1115,7 +1115,7 @@ if `None`, no baseline correction is applied.
     ```
 """
 
-contrasts: Iterable[Union[Tuple[str, str], ArbitraryContrast]] = []
+contrasts: Iterable[Union[Tuple[str, str], ArbitraryContrast]] = [("avatar", "sticks")]
 """
 The conditions to contrast via a subtraction of ERPs / ERFs. The list elements
 can either be tuples or dictionaries (or a mix of both). Each element in the
@@ -1591,7 +1591,7 @@ locations set.
 # TIME-FREQUENCY
 # --------------
 
-time_frequency_conditions: Iterable[str] = ["s3022", "s3042"]
+time_frequency_conditions: Iterable[str] = ["avatar", "sticks"] # ["s3022", "s3042"]
 """
 The conditions to compute time-frequency decomposition on.
 
@@ -1642,7 +1642,7 @@ highlight induced activity.
 # TIME-FREQUENCY CSP
 # ------------------
 
-decoding_csp: bool = False
+decoding_csp: bool = True
 """
 Whether to run decoding via Common Spatial Patterns (CSP) analysis on the
 data. CSP takes as input data covariances that are estimated on different
@@ -2091,7 +2091,7 @@ in the report. If `None`, it defaults to the current default in MNE-Python.
 # Execution
 # ---------
 
-n_jobs: int = 4
+n_jobs: int = 6
 """
 Specifies how many subjects you want to process in parallel. If `1`, disables
 parallel processing.
