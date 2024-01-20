@@ -26,7 +26,7 @@ study_name: str = "EEG-course-project"
      ```
 """
 
-bids_root: Optional[PathLike] = "../data/ds003702/"
+bids_root: Optional[PathLike] = "./data/ds003702/"
 """
  Specify the BIDS root directory. Pass an empty string or ```None` to use
  the value specified in the `BIDS_ROOT` environment variable instead.
@@ -1724,7 +1724,7 @@ and the other from that midpoint to `time_frequency_freq_max`.
     }
 """
 
-time_frequency_baseline: Optional[Tuple[float, float]] = (None, 0)
+time_frequency_baseline: Optional[Tuple[float, float]] = None
 """
 Baseline period to use for the time-frequency analysis. If `None`, no baseline.
 ???+ example "Example"
