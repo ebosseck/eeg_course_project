@@ -1724,7 +1724,7 @@ and the other from that midpoint to `time_frequency_freq_max`.
     }
 """
 
-time_frequency_baseline: Optional[Tuple[float, float]] = None
+time_frequency_baseline: Optional[Tuple[float, float]] = (epochs_tmin, 0)
 """
 Baseline period to use for the time-frequency analysis. If `None`, no baseline.
 ???+ example "Example"
