@@ -151,7 +151,7 @@ plotting.
 """
 
 # # For debugging purposes, select subset of subjects
-subjects_range = [1, 1] # valid: 1..50
+subjects_range = [1, 1] # valid: 1..50 # TODO: increase to maximum (50)
 subjects_skipped = [31, 37] # 31: reacton to stimulus before visibility of object, 37: unknown compilation problem
 subjects_missing = [8, 42, 47] # do not change
 subjects_skipped += subjects_missing
