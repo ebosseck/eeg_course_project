@@ -1404,7 +1404,7 @@ false-alarm rate increases dramatically.
 # Rejection based on peak-to-peak amplitude
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-reject: Optional[Union[Dict[str, float], Literal["autoreject_global"]]] = None
+reject: Optional[Union[Dict[str, float], Literal["autoreject_global"]]] = "autoreject_global"
 """
 Peak-to-peak amplitude limits to mark epochs as bad. This allows you to remove
 epochs with strong transient artifacts.
