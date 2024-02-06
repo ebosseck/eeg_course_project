@@ -50,6 +50,20 @@ the processing results. If `None`, this will be
      set [`subjects_dir`][mne_bids_pipeline._config.subjects_dir] as well.
 """
 
+steps = [
+  "init",
+  "preprocessing/_01_data_quality",
+  "preprocessing/_02_head_pos",
+  "preprocessing/_03_maxfilter",
+  "preprocessing/_04_frequency_filter",
+  "preprocessing/_05_make_epochs",
+  "preprocessing/_06a_run_ica",
+  "preprocessing/_07a_apply_ica"
+  "preprocessing/_08_ptp_reject",
+  "sensor",
+  "source"
+]
+
 subjects_dir: Optional[PathLike] = bids_root
 """
 Path to the directory that contains the FreeSurfer reconstructions of all
