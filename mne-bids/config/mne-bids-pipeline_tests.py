@@ -50,7 +50,7 @@ the processing results. If `None`, this will be
      set [`subjects_dir`][mne_bids_pipeline._config.subjects_dir] as well.
 """
 
-subjects_dir: Optional[PathLike] = "./data/ds003702/"
+subjects_dir: Optional[PathLike] = bids_root
 """
 Path to the directory that contains the FreeSurfer reconstructions of all
 subjects. Specifically, this defines the `SUBJECTS_DIR` that is used by
