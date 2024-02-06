@@ -1318,7 +1318,7 @@ manually specify peak-to-peak rejection thresholds (see examples).
     ```
 """
 
-ica_algorithm: Literal["picard", "fastica", "extended_infomax"] = "picard"
+ica_algorithm: Literal["picard", "fastica", "extended_infomax"] = "extended_infomax"
 """
 The ICA algorithm to use.
 """
