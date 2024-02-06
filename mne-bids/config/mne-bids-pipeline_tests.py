@@ -1307,7 +1307,7 @@ is not reliable.
 
 # Rejection based on ICA
 # ~~~~~~~~~~~~~~~~~~~~~~
-ica_reject: Optional[Dict[str, float]] = {'eeg': 0.0002} # manually chosen, auto_reject seems to return values in range 0.0001 to 0.0005
+ica_reject: Optional[Dict[str, float]] = {'eeg': 400e-6} # manually chosen, auto_reject seems to return values in range 0.0001 to 0.0005 V
 """
 Peak-to-peak amplitude limits to exclude epochs from ICA fitting.
 
