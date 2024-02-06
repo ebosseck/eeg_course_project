@@ -2,6 +2,10 @@
 # Run this function in the project root by running
 # $ python3 ./src/data_handling/convert_brainvision2bids.py
 
+version = 2 # set version of this conversion
+# version 1: replace relevant labels of first version with human readable labels
+# version 2: do the renaming in the pipeline configuration
+
 import csv
 
 def convert_brainvision_to_bids(vmrk_file, bids_file):
@@ -21,7 +25,10 @@ def convert_brainvision_to_bids(vmrk_file, bids_file):
   for marker in markers:
       onset = float(marker[2]) / 500 # Convert from data points to seconds
       duration = float(marker[3]) / 500 # Convert from data points to seconds
-      trial_type = marker[1] if marker[1] not in ["s3022", "s3042"] else "avatar" if marker[1] == "s3022" else "sticks" # if marker[1] == "s3042"
+      if version == 1:
+        trial_type = marker[1] if marker[1] not in ["s3022", "s3042"] else "avatar" if marker[1] == "s3022" else "sticks" # if marker[1] == "s3042"
+      else:
+        trial_type = marker[1]
       bids_markers.append({'onset': onset, 'duration': duration, 'trial_type': trial_type})
 
   # Write the BIDS markers to a text file
