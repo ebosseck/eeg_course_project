@@ -924,11 +924,11 @@ can be used for resampling raw data. `1` means no decimation.
 # RENAME EXPERIMENTAL EVENTS
 # --------------------------
 
-rename_events: dict = dict()
-# rename_events: dict = {
-#     "Stimulus/s3022": "avatar",
-#     "Stimulus/s3042": "sticks"
-# }
+# rename_events: dict = dict()
+rename_events: dict = {
+    "s3021": "avatar",
+    "s3041": "sticks"
+}
 """
 A dictionary specifying which events in the BIDS dataset to rename upon
 loading, and before processing begins.
@@ -1038,8 +1038,8 @@ unknown metadata column, a warning will be emitted and all epochs will be kept.
 """  # noqa: E501
 
 conditions: Optional[Union[Iterable[str], Dict[str, str]]] = [
-    "avatar", # "s3022", # "object_shown_avatar"
-    "sticks" # "s3042", # "object_shown_sticks"
+    "s3021", # "avatar", # "s3022",
+    "s3041"  # "sticks"  # "s3042"
 ]
 """
 The time-locked events based on which to create evoked responses.
@@ -1083,7 +1083,7 @@ The beginning of an epoch, relative to the respective event, in seconds.
     ```
 """
 
-epochs_tmax: float = 1.0
+epochs_tmax: float = 6.0
 """
 The end of an epoch, relative to the respective event, in seconds.
 ???+ example "Example"
