@@ -1038,8 +1038,8 @@ unknown metadata column, a warning will be emitted and all epochs will be kept.
 """  # noqa: E501
 
 conditions: Optional[Union[Iterable[str], Dict[str, str]]] = [
-    "s3021", # "avatar", # "s3022",
-    "s3041"  # "sticks"  # "s3042"
+    "avatar", # "s3022",
+    "sticks"  # "s3042"
 ]
 """
 The time-locked events based on which to create evoked responses.
