@@ -26,7 +26,7 @@ study_name: str = "EEG-course-project"
      ```
 """
 
-bids_root: Optional[PathLike] = "../data/ds003702/"
+bids_root: Optional[PathLike] = "./data/ds003702/"
 """
  Specify the BIDS root directory. Pass an empty string or ```None` to use
  the value specified in the `BIDS_ROOT` environment variable instead.
@@ -924,7 +924,10 @@ can be used for resampling raw data. `1` means no decimation.
 # RENAME EXPERIMENTAL EVENTS
 # --------------------------
 
-rename_events: dict = dict()
+rename_events: dict = {
+    "Stimulus/s3022": "avatar",
+    "Stimulus/s3042": "sticks"
+}
 """
 A dictionary specifying which events in the BIDS dataset to rename upon
 loading, and before processing begins.
@@ -1724,7 +1727,7 @@ and the other from that midpoint to `time_frequency_freq_max`.
     }
 """
 
-time_frequency_baseline: Optional[Tuple[float, float]] = None
+time_frequency_baseline = (epochs_tmin, 0)
 """
 Baseline period to use for the time-frequency analysis. If `None`, no baseline.
 ???+ example "Example"
@@ -1739,7 +1742,7 @@ Baseline mode to use for the time-frequency analysis. Can be chosen among:
 "mean" or "ratio" or "logratio" or "percent" or "zscore" or "zlogratio".
 ???+ example "Example"
     ```python
-    time_frequency_baseline_mode = 'mean'
+    time_frequency_baseline_mode = 'logratio'
     ```
 """
 
