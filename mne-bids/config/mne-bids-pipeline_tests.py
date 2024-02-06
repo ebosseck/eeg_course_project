@@ -50,7 +50,21 @@ the processing results. If `None`, this will be
      set [`subjects_dir`][mne_bids_pipeline._config.subjects_dir] as well.
 """
 
-subjects_dir: Optional[PathLike] = "./data/ds003702/"
+steps = [
+  "init",
+  "preprocessing/_01_data_quality",
+  "preprocessing/_02_head_pos",
+  "preprocessing/_03_maxfilter",
+  "preprocessing/_04_frequency_filter",
+  "preprocessing/_05_make_epochs",
+  "preprocessing/_06a_run_ica",
+  "preprocessing/_07a_apply_ica"
+  "preprocessing/_08_ptp_reject",
+  "sensor",
+  "source"
+]
+
+subjects_dir: Optional[PathLike] = bids_root
 """
 Path to the directory that contains the FreeSurfer reconstructions of all
 subjects. Specifically, this defines the `SUBJECTS_DIR` that is used by
@@ -1293,7 +1307,7 @@ is not reliable.
 
 # Rejection based on ICA
 # ~~~~~~~~~~~~~~~~~~~~~~
-ica_reject: Optional[Dict[str, float]] = {'eeg': 0.0004} # manually chosen, auto_reject seems to return values in range 0.0001 to 0.0005
+ica_reject: Optional[Dict[str, float]] = {'eeg': 400e-6} # manually chosen, auto_reject seems to return values in range 0.0001 to 0.0005 V
 """
 Peak-to-peak amplitude limits to exclude epochs from ICA fitting.
 
@@ -1344,7 +1358,7 @@ Set to `None` to not apply an additional high-pass filter.
     us so we can discuss.
 """
 
-ica_max_iterations: int = 500
+ica_max_iterations: int = 3000
 """
 Maximum number of iterations to decompose the data into independent
 components. A low number means to finish earlier, but the consequence is
@@ -1357,7 +1371,7 @@ it converges quicker than the other algorithms; but e.g. for FastICA, this
 limit may be too low to achieve convergence.
 """
 
-ica_n_components: Optional[Union[float, int]] = 0.85
+ica_n_components: Optional[Union[float, int]] = 0.95 # increase for more ICA components, with 0.85, fewer components than rejected by the original authors get returned
 """
 MNE conducts ICA as a sort of a two-step procedure: First, a PCA is run
 on the data (trying to exclude zero-valued components in rank-deficient
