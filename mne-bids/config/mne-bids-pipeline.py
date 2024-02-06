@@ -26,7 +26,7 @@ study_name: str = "EEG-course-project"
      ```
 """
 
-bids_root: Optional[PathLike] = "./data/ds003702/"
+bids_root: Optional[PathLike] = "../data/ds003702/"
 """
  Specify the BIDS root directory. Pass an empty string or ```None` to use
  the value specified in the `BIDS_ROOT` environment variable instead.
@@ -71,7 +71,7 @@ FreeSurfer.
      and want to run the source analysis steps.
 """
 
-interactive: bool = False
+interactive: bool = False # True
 """
 If True, the steps will provide some interactive elements, such as
 figures. If running the steps from a notebook or Spyder,
@@ -223,7 +223,7 @@ The channel types to consider.
     ```
 """
 
-data_type: Optional[Literal["meg", "eeg"]] = None
+data_type: Optional[Literal["meg", "eeg"]] = "eeg"
 """
 The BIDS data type.
 
@@ -837,7 +837,7 @@ The low-frequency cut-off in the highpass filtering step.
 Keep it `None` if no highpass filtering should be applied.
 """
 
-h_freq: Optional[float] = 32.0
+h_freq: Optional[float] = 30.0
 """
 The high-frequency cut-off in the lowpass filtering step.
 Keep it `None` if no lowpass filtering should be applied.
@@ -886,7 +886,7 @@ notch_widths: Optional[Union[float, Iterable[float]]] = None
 Specifies the width of each stop band. `None` uses the MNE default.
 """
 
-raw_resample_sfreq: Optional[float] = 80.0
+raw_resample_sfreq: Optional[float] = 100.0
 """
 Specifies at which sampling frequency the data should be resampled.
 If `None`, then no resampling will be done.
@@ -925,6 +925,10 @@ can be used for resampling raw data. `1` means no decimation.
 # --------------------------
 
 rename_events: dict = dict()
+# rename_events: dict = {
+#     "Stimulus/s3022": "avatar",
+#     "Stimulus/s3042": "sticks"
+# }
 """
 A dictionary specifying which events in the BIDS dataset to rename upon
 loading, and before processing begins.
@@ -1034,8 +1038,8 @@ unknown metadata column, a warning will be emitted and all epochs will be kept.
 """  # noqa: E501
 
 conditions: Optional[Union[Iterable[str], Dict[str, str]]] = [
-    "s3022", # "object_shown_avatar"
-    "s3042", # "object_shown_sticks"
+    "avatar", # "s3022", # "object_shown_avatar"
+    "sticks" # "s3042", # "object_shown_sticks"
 ]
 """
 The time-locked events based on which to create evoked responses.
@@ -1115,7 +1119,7 @@ if `None`, no baseline correction is applied.
     ```
 """
 
-contrasts: Iterable[Union[Tuple[str, str], ArbitraryContrast]] = [('s3022', 's3042')]
+contrasts: Iterable[Union[Tuple[str, str], ArbitraryContrast]] = [("avatar", "sticks")]
 """
 The conditions to contrast via a subtraction of ERPs / ERFs. The list elements
 can either be tuples or dictionaries (or a mix of both). Each element in the
@@ -1591,7 +1595,7 @@ locations set.
 # TIME-FREQUENCY
 # --------------
 
-time_frequency_conditions: Iterable[str] = ["s3022", "s3042"]
+time_frequency_conditions: Iterable[str] = ["avatar", "sticks"] # ["s3022", "s3042"]
 """
 The conditions to compute time-frequency decomposition on.
 
@@ -1724,7 +1728,7 @@ and the other from that midpoint to `time_frequency_freq_max`.
     }
 """
 
-time_frequency_baseline: Optional[Tuple[float, float]] = None
+time_frequency_baseline: Optional[Tuple[float, float]] = (epochs_tmin, 0)
 """
 Baseline period to use for the time-frequency analysis. If `None`, no baseline.
 ???+ example "Example"
@@ -1733,7 +1737,7 @@ Baseline period to use for the time-frequency analysis. If `None`, no baseline.
     ```
 """
 
-time_frequency_baseline_mode: str = "logratio"
+time_frequency_baseline_mode: str = "mean"
 """
 Baseline mode to use for the time-frequency analysis. Can be chosen among:
 "mean" or "ratio" or "logratio" or "percent" or "zscore" or "zlogratio".
@@ -2091,7 +2095,7 @@ in the report. If `None`, it defaults to the current default in MNE-Python.
 # Execution
 # ---------
 
-n_jobs: int = 4
+n_jobs: int = 6
 """
 Specifies how many subjects you want to process in parallel. If `1`, disables
 parallel processing.
