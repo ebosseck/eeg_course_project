@@ -1358,7 +1358,7 @@ Set to `None` to not apply an additional high-pass filter.
     us so we can discuss.
 """
 
-ica_max_iterations: int = 500
+ica_max_iterations: int = 3000
 """
 Maximum number of iterations to decompose the data into independent
 components. A low number means to finish earlier, but the consequence is
@@ -1371,7 +1371,7 @@ it converges quicker than the other algorithms; but e.g. for FastICA, this
 limit may be too low to achieve convergence.
 """
 
-ica_n_components: Optional[Union[float, int]] = 0.90 # increase for more ICA components, with 0.85, fewer components than rejected by the original authors get returned
+ica_n_components: Optional[Union[float, int]] = 0.95 # increase for more ICA components, with 0.85, fewer components than rejected by the original authors get returned
 """
 MNE conducts ICA as a sort of a two-step procedure: First, a PCA is run
 on the data (trying to exclude zero-valued components in rank-deficient
