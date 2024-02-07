@@ -1,57 +1,76 @@
 # Convert given BrainVis files to BIDS format and store those with matching filename
 # Run this function in the project root by running
 # $ python3 ./src/data_handling/convert_brainvision2bids.py
+from os.path import exists
+
+version = 2  # set version of this conversion
+# version 1: replace relevant labels of first version with human readable labels
+# version 2: do the renaming in the pipeline configuration
 
 import csv
+from . import *
+from tools.logtools import *
 
 def convert_brainvision_to_bids(vmrk_file, bids_file):
-  # Read the BrainVision VMRK file
-  with open(vmrk_file, 'r') as f:
-      lines = f.readlines()
+    # Read the BrainVision VMRK file
+    with open(vmrk_file, 'r') as f:
+        lines = f.readlines()
 
-  # Extract the marker information
-  markers = []
-  for line in lines:
-      if line.startswith('Mk'):
-          marker = line.split('=')[1].split(',')
-          markers.append(marker)
+    # Extract the marker information
+    markers = []
+    for line in lines:
+        if line.startswith('Mk'):
+            marker = line.split('=')[1].split(',')
+            markers.append(marker)
 
-  # Convert the marker information to BIDS format
-  bids_markers = []
-  for marker in markers:
-      onset = float(marker[2]) / 500 # Convert from data points to seconds
-      duration = float(marker[3]) / 500 # Convert from data points to seconds
-      trial_type = marker[1] if marker[1] not in ["s3022", "s3042"] else "avatar" if marker[1] == "s3022" else "sticks" # if marker[1] == "s3042"
-      bids_markers.append({'onset': onset, 'duration': duration, 'trial_type': trial_type})
+    # Convert the marker information to BIDS format
+    bids_markers = []
+    for marker in markers:
+        onset = float(marker[2]) / 500  # Convert from data points to seconds
+        duration = float(marker[3]) / 500  # Convert from data points to seconds
+        if version == 1:
+            trial_type = marker[1] if marker[1] not in ["s3022", "s3042"] else "avatar" if marker[
+                                                                                               1] == "s3022" else "sticks"  # if marker[1] == "s3042"
+        else:
+            trial_type = marker[1]
+        bids_markers.append({'onset': onset, 'duration': duration, 'trial_type': trial_type})
 
-  # Write the BIDS markers to a text file
-  with open(bids_file, 'w') as f:
-      writer = csv.DictWriter(f, fieldnames=['onset', 'duration', 'trial_type'], delimiter='\t')
-      writer.writeheader()
-      writer.writerows(bids_markers)
+    # Write the BIDS markers to a text file
+    with open(bids_file, 'w') as f:
+        writer = csv.DictWriter(f, fieldnames=['onset', 'duration', 'trial_type'], delimiter='\t')
+        writer.writeheader()
+        writer.writerows(bids_markers)
 
-  return bids_markers
+    return bids_markers
 
-# run the actual processing for all subjects
-for subjectId in range(1, 51):
+def buildEventTSV(bids_path: str):
+    # run the actual processing for all subjects
+    for subjectId in SUBJECT_IDS:
+        print(formatString("Building events.tsv for Subject:", style=STYLE_DEFAULT),
+              formatString(subjectId, style=STYLE_TEXT_BLUE))
+        # update paths and filenames
+        path2subjectStr: str = "{path}/sub-{subjectId:02d}/eeg/".format(subjectId=subjectId, path=bids_path)
+        filenameBrainvisionStr: str = f"sub-{subjectId:02d}_task-SocialMemoryCuing_eeg.vmrk"
+        path2fileBvStr: str = path2subjectStr + filenameBrainvisionStr
+        filenameBidsStr: str = f"sub-{subjectId:02d}_task-SocialMemoryCuing_events.tsv"
+        path2fileBidsStr: str = path2subjectStr + filenameBidsStr
 
-    # update paths and filenames
-    path2subjectStr:str = f"./data/ds003702/sub-{subjectId:02d}/eeg/"
-    filenameBrainvisionStr:str = f"sub-{subjectId:02d}_task-SocialMemoryCuing_eeg.vmrk"
-    path2fileBvStr:str = path2subjectStr + filenameBrainvisionStr
-    filenameBidsStr:str = f"sub-{subjectId:02d}_task-SocialMemoryCuing_events.tsv"
-    path2fileBidsStr:str = path2subjectStr + filenameBidsStr
+        if exists(path2fileBidsStr):
+            print("Skipping, events.tsv already exists.", style=STYLE_TEXT_YELLOW)
 
-    # print the previously given files
-    print(path2subjectStr)
-    print(path2fileBvStr)
-    print(path2fileBidsStr)
+        # print the previously given files
+#        print(path2subjectStr)
+#        print(path2fileBvStr)
+#        print(path2fileBidsStr)
 
-    try:
-        # run the type conversion
-        bids_markers = convert_brainvision_to_bids(
-            vmrk_file = path2fileBvStr,
-            bids_file = path2fileBidsStr
-        )
-    except:
-        pass
+        try:
+            # run the type conversion
+            bids_markers = convert_brainvision_to_bids(
+                vmrk_file=path2fileBvStr,
+                bids_file=path2fileBidsStr
+            )
+        except Exception as ex:
+            print(formatString("Error building events.tsv:", style=STYLE_DEFAULT),
+                  formatString(ex, style=STYLE_TEXT_RED),
+                  formatString("(Subject {})".format(subjectId), style=STYLE_TEXT_BLUE))
+            pass

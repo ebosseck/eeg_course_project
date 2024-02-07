@@ -4,9 +4,10 @@ import urllib.request
 import hashlib
 import zipfile as zf
 from os.path import basename
+from time import time
 
 from typing import Union, AnyStr, List, Optional
-
+from .logtools import *
 
 def filenameof(path):
     """
@@ -101,13 +102,36 @@ def readFileLines(path: Union[str, bytes, os.PathLike[str], os.PathLike[bytes], 
 
     return lines
 
+start_time = time()
+last_reported_progress = 0
+delta_progress = 0.0001
+
 def saveURL(url: str, filename: str):
+    global start_time, last_reported_progress, delta_progress
     """
     Save the file from the given URL to disk
     :param url: Download path
     :param filename: Path for the downloaded file
     """
-    urllib.request.urlretrieve(url=url, filename=filename)
+    start_time = time()
+    last_reported_progress = 0
+    delta_progress = 0.001 # report progress in 0.1 % steps
+
+    urllib.request.urlretrieve(url=url, filename=filename, reporthook=reportDownloadProgress)
+
+
+def reportDownloadProgress(blocks, curr_file, expected_size):
+    global last_reported_progress
+    progress = (blocks*curr_file)/expected_size
+
+    if progress >= last_reported_progress + delta_progress:
+        progress_time = time() - start_time
+        eta = progress_time * (1 / progress - 1)
+        print(formatString("Download Progress:", style=STYLE_DEFAULT),
+              formatString("{: 5.2f}".format(progress * 100), ' %', style=[STYLE_BOLD, STYLE_TEXT_BLUE], sep=''),
+              formatString('ETA: ', "{: 4}".format(int(eta//60)), ':', "{:05.2f}".format(eta%60), style=[STYLE_BOLD, STYLE_TEXT_YELLOW], sep=''))
+        last_reported_progress = progress
+
 
 
 def unzip(filename: str, base_path: str, prefix: Optional[str] = "ds003702/sub"):
