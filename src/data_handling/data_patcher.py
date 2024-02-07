@@ -2,7 +2,7 @@
 import tools.filetools as files
 
 from . import *
-
+from tools.logtools import *
 
 def patch_bids_file(path: str):
     filename = files.filenameof(path)
@@ -19,9 +19,11 @@ def patch_bids_file(path: str):
 
     files.writeFile(path, '\n'.join(filtered))
 
-def patchAllFiles():
+def patchAllFiles(bids_path: str):
 
     for sub in SUBJECT_IDS:
+        print(formatString("Patching file names for Subject:", style=STYLE_DEFAULT),
+              formatString(sub, style=STYLE_TEXT_BLUE))
         for ext in EXTENSIONS:
             filename = ".".join([FILENAME.format(sub, sub), ext])
-            patch_bids_file(DATA_BASE_DIR + filename)
+            patch_bids_file(str(bids_path) + '/' + filename)

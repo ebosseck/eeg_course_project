@@ -20,17 +20,21 @@ def ensureDataDirPresent():
               formatString('"', DATA_BASE_DIR, '"', style=[STYLE_UNDERLINE, STYLE_TEXT_BLUE], sep=''))
         print(formatString("Your current working directory is:", style=STYLE_TEXT_RED),
               formatString('"', os.getcwd(), '"', style=[STYLE_UNDERLINE, STYLE_TEXT_BLUE], sep=''))
-        print("Create new data directory ? (y/n)", style=STYLE_TEXT_RED)
-        response = input().lower()
-        if response != 'y':
-            print("Please ensure the data directory exists and is properly configured in this script, then retry.", style=STYLE_TEXT_RED)
-            print("Exiting", style=STYLE_TEXT_RED)
-            exit(-1)
+        if not NO_QUESTIONS:
+            print("Create new data directory ? (y/n)", style=STYLE_TEXT_RED)
+            response = input().lower()
+            if response != 'y':
+                print("Please ensure the data directory exists and is properly configured in this script, then retry.", style=STYLE_TEXT_RED)
+                print("Exiting", style=STYLE_TEXT_RED)
+                exit(-1)
         try:
             os.makedirs(DATA_BASE_DIR)
         except OSError as exc:  # Guard against race condition
             if exc.errno != errno.EEXIST:
                 raise
+    else:
+        print(formatString("Data directory is found: ", style=STYLE_TEXT_GREEN), formatString(DATA_BASE_DIR, style=STYLE_TEXT_BLUE))
+
 
 def checkAllDataPresent():
     """
@@ -41,11 +45,15 @@ def checkAllDataPresent():
     for subject in SUBJECT_IDS:
         for file in PER_SUBJECT_FILES:
             current_file = "".join([DATA_BASE_DIR, file.format(subject, subject)])
+            print(formatString("Checking file:", style=STYLE_TEXT_YELLOW), formatString(current_file, style=STYLE_TEXT_BLUE))
+
             if not os.path.exists(current_file):
                 print(formatString("File not Found:", style=STYLE_TEXT_RED),
                       formatString('"', current_file, '"', style=[STYLE_UNDERLINE, STYLE_TEXT_BLUE], sep=''))
                 return False
+    print("All subject data files are present !", style=STYLE_TEXT_GREEN)
     return True
+
 
 def getZipFile():
     """
@@ -54,16 +62,19 @@ def getZipFile():
     """
     zip_path = "".join([DATA_BASE_DIR, DATA_PATH])
     if not os.path.exists(zip_path):
-        print("Missing raw data. Download raw data ? (y/n)", style=STYLE_TEXT_RED)
-        response = input().lower()
-        if response != 'y':
-            print("Please ensure all required data is present or allow downloading a fresh copy.", style=STYLE_TEXT_RED)
-            print("Exiting", style=STYLE_TEXT_RED)
-            exit(-1)
+        if not NO_QUESTIONS:
+            print("Missing raw data. Download raw data ? (y/n)", style=STYLE_TEXT_RED)
+            response = input().lower()
+            if response != 'y':
+                print("Please ensure all required data is present or allow downloading a fresh copy.", style=STYLE_TEXT_RED)
+                print("Exiting", style=STYLE_TEXT_RED)
+                exit(-1)
 
         print(formatString("Downloading data from ", style=STYLE_DEFAULT),
             formatString('"', DATA_DOWNLOAD_URL, '"', style=[STYLE_UNDERLINE, STYLE_TEXT_BLUE], sep=''))
+
         saveURL(DATA_DOWNLOAD_URL, zip_path)
+
 
     if VALIDATE_DATA:
         print("Validating Data", style=STYLE_DEFAULT)
@@ -79,16 +90,19 @@ def getZipFile():
 
     return zip_path
 
+
 def ensureRawDataPresent():
     """
     Ensures that the raw data is present
     :return:
     """
     if not checkAllDataPresent():
+        print("Getting zip file...", style=STYLE_DEFAULT)
         zip_path = getZipFile()
         print("Extracting files...", style=STYLE_DEFAULT)
         unzip(zip_path, DATA_BASE_DIR)
         print("Extraction Done.", style=STYLE_DEFAULT)
+
 
 def fetchData():
     """

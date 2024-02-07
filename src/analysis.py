@@ -23,24 +23,13 @@ DATA_BASE_DIR = "../data/"
 # Alternate download url
 # https://github.com/OpenNeuroDatasets/ds003702/archive/refs/heads/master.zip
 DATA_DOWNLOAD_URL = "https://nemar.org/dataexplorer/download?filepath=/data/nemar/openneuro/zip_files/ds003702.zip"
+DATA_DOWNLOAD_URL_ALT = "https://github.com/OpenNeuroDatasets/ds003702/archive/refs/heads/master.zip"
 DATA_PATH = "ds003702.zip"
 DATA_CHECKSUM = '95f393b9c197cb4c54d7b56577438ef2ef552e2190198b9af350d774820125d45216d873f29cbd2c9c8212387f6d94825cff1c8ba6a7c76e8c3ba7894fbe8140'
 
 
 
 #endregion
-
-#region Preprocessing
-
-#endregion
-
-#region Analysis
-
-#endregion
-
-#endregion
-
-#region Data
 
 #region data check
 
