@@ -1,11 +1,19 @@
-import mne
-import mne_icalabel
-from mne.preprocessing import read_ica
+# allow for reading in a comma separated list from file
 import pandas as pd
+
+# import some eeg specific modules
+from mne import io as mio # allow for reading in raw data
+import mne_icalabel       # allow for labelling ica components
+from mne.preprocessing import read_ica # self explaining
+
+# add pipeline specific tools for loading settings from config object
 from mne_bids_pipeline._config_utils import (
     get_subjects,
     get_sessions
 )
+
+# allow for definition of optional parameters in a function definition
+from typing import Optional
 
 def update_ica_labels(cfg=None, do_print_verbose:bool=True):
     """
@@ -15,9 +23,9 @@ def update_ica_labels(cfg=None, do_print_verbose:bool=True):
     """
     for subject in get_subjects(cfg):
         for session in get_sessions(cfg):
-            paths = ih.get_input_fnames_apply_ica(cfg=cfg, subject=subject, session=session)
+            paths = get_input_fnames_apply_ica(cfg=cfg, subject=subject, session=session)
             ica = read_ica(paths["ica"])
-            raw = mne.io.read_raw_fif(paths["raw"])
+            raw = mio.read_raw_fif(paths["raw"])
             
             label_results = mne_icalabel.label_components(raw, ica, method="iclabel")
 
