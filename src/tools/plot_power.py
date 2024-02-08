@@ -1,4 +1,4 @@
-﻿from typing import Literal, Tuple
+from typing import Literal, Tuple
 
 from mne_bids_pipeline._config_import import _import_config
 import mne
@@ -9,7 +9,8 @@ BANDS = {
     'alpha': [8.0, 12.0],
     'theta': [4.0, 7.0]
 }
-def plotPower(config_path: str, subject: str, cue: Literal['avatar', 'sticks'], band: Literal['alpha', 'theta'],
+
+def plot_power(config_path: str, subject: str, cue: Literal['avatar', 'sticks'], band: Literal['alpha', 'theta'],
               time_range: Tuple[float, float], filename: str):
     cfg = _import_config(
         config_path=config_path
