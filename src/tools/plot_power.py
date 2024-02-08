@@ -39,3 +39,5 @@ def plot_power(config_path: str, subject: str, cue: Literal['avatar', 'sticks'],
     fig_power.set_size_inches(5, 5)
 
     fig_power.savefig(filename.format(cue=cue, band=band, **time_frequency_crop))
+
+    fig_power.close()
