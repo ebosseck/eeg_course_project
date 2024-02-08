@@ -5,6 +5,7 @@ import pandas as pd
 from mne import io as mio # allow for reading in raw data
 import mne_icalabel       # allow for labelling ica components
 from mne.preprocessing import read_ica # self explaining
+from mne_bids import BIDSPath # allow for BIDSPath objects
 
 # add pipeline specific tools for loading settings from config object
 from mne_bids_pipeline._config_utils import (
@@ -24,9 +25,17 @@ def update_ica_labels(cfg=None, do_print_verbose:bool=True):
     for subject in get_subjects(cfg):
         for session in get_sessions(cfg):
             paths = get_input_fnames_apply_ica(cfg=cfg, subject=subject, session=session)
-            ica = read_ica(paths["ica"])
-            raw = mio.read_raw_fif(paths["raw"])
-            
+            try:
+                ica = read_ica(paths["ica"])
+            except FileNotFoundError:
+                curr_path = paths["ica"]
+                Warning(f"FileNotFoundError, the file {curr_path} was not found.")
+            try:
+                raw = mio.read_raw_fif(paths["raw"])
+            except FileNotFoundError:
+                curr_path = paths["raw"]
+                Warning(f"FileNotFoundError, the file {curr_path} was not found.")
+                
             label_results = mne_icalabel.label_components(raw, ica, method="iclabel")
 
             if do_print_verbose:
@@ -39,7 +48,11 @@ def update_ica_labels(cfg=None, do_print_verbose:bool=True):
             exclude_idx = [
                 idx for idx, label in enumerate(labels) if label not in ["brain", "other"]
             ]
-            tsv_data = pd.read_csv(paths["components"], sep="\t")
+            try:
+                tsv_data = pd.read_csv(paths["components"], sep="\t")
+            except FileNotFoundError:
+                curr_path = paths["components"]
+                Warning(f"FileNotFoundError, the file {curr_path} was not found.")
             
             if do_print_verbose:
                 # checkup: print old content of the file
@@ -54,6 +67,7 @@ def update_ica_labels(cfg=None, do_print_verbose:bool=True):
                 print(tsv_data)
             
             tsv_data.to_csv(paths["components"], sep="\t", index=False)
+
 
 
 def get_input_fnames_apply_ica(
