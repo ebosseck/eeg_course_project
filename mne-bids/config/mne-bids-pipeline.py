@@ -26,7 +26,7 @@ study_name: str = "EEG-course-project"
      ```
 """
 
-bids_root: Optional[PathLike] = "../data/ds003702/"
+bids_root: Optional[PathLike] = "./data/ds003702/"
 """
  Specify the BIDS root directory. Pass an empty string or ```None` to use
  the value specified in the `BIDS_ROOT` environment variable instead.
