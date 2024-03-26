@@ -1093,7 +1093,7 @@ processing resting-state data. If left as `None` and
                   'incorrect': 'response/incorrect'}
 """  # noqa : E501
 
-epochs_tmin: float = -1.0
+epochs_tmin: float = -1.0 # equal to original publication
 """
 The beginning of an epoch, relative to the respective event, in seconds.
 
@@ -1103,7 +1103,7 @@ The beginning of an epoch, relative to the respective event, in seconds.
     ```
 """
 
-epochs_tmax: float = 6.0
+epochs_tmax: float = 4.0 # final two seconds are skipped
 """
 The end of an epoch, relative to the respective event, in seconds.
 ???+ example "Example"
