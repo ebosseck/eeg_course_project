@@ -35,7 +35,7 @@ def update_ica_labels(cfg=None, do_print_verbose:bool=True):
             except FileNotFoundError:
                 curr_path = paths["raw"]
                 Warning(f"FileNotFoundError, the file {curr_path} was not found.")
-                
+
             label_results = mne_icalabel.label_components(raw, ica, method="iclabel")
 
             if do_print_verbose:
@@ -43,7 +43,7 @@ def update_ica_labels(cfg=None, do_print_verbose:bool=True):
                 print(str(ica)) # checkup print of known data about ICA
                 print("\nresulting predictions:", label_results["y_pred_proba"]) # checkup print
                 print("\nresulting labels:     ", label_results["labels"])       # checkup print
-            
+
             labels = label_results["labels"]
             exclude_idx = [
                 idx for idx, label in enumerate(labels) if label not in ["brain", "other"]
@@ -53,28 +53,28 @@ def update_ica_labels(cfg=None, do_print_verbose:bool=True):
             except FileNotFoundError:
                 curr_path = paths["components"]
                 Warning(f"FileNotFoundError, the file {curr_path} was not found.")
-            
+
             if do_print_verbose:
                 # checkup: print old content of the file
                 print("\nold tsv file content:")
                 print(str(tsv_data))
-            
+
             tsv_data.loc[exclude_idx, "status"] = "bad"
-            
+
             if do_print_verbose:
                 # checkup: print updated content of the file
                 print("\nnew tsv file content:")
                 print(tsv_data)
-            
+
             tsv_data.to_csv(paths["components"], sep="\t", index=False)
 
 
 
 def get_input_fnames_apply_ica(
-    *,
-    cfg,
-    subject: str,
-    session: Optional[str],
+        *,
+        cfg,
+        subject: str,
+        session: Optional[str],
 ) -> dict:
     """
     Return the paths of the files containing ica components, raw signals, and ica component labels.
