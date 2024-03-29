@@ -1,5 +1,6 @@
 from typing import Literal, Tuple
 
+import matplotlib
 from mne_bids_pipeline._config_import import _import_config
 import mne
 
@@ -11,7 +12,7 @@ BANDS = {
 }
 
 def plot_power(config_path: str, subject: str, cue: Literal['avatar', 'sticks'], band: Literal['alpha', 'theta'],
-              time_range: Tuple[float, float], filename: str):
+              time_range: Tuple[float, float]):
     cfg = _import_config(
         config_path=config_path
     )
@@ -34,8 +35,30 @@ def plot_power(config_path: str, subject: str, cue: Literal['avatar', 'sticks'],
     if time_frequency_crop:
         power.crop(**time_frequency_crop)
 
-    fig_power = power.plot_topomap(ch_type='eeg', show=True)
-    fig_power.axes[0].set_title('{}: {}'.format(cue, band))
-    fig_power.set_size_inches(5, 5)
+    return power
 
-    fig_power.savefig(filename.format(cue=cue, band=band, **time_frequency_crop))
+def plot_avg_power(config_path: str, subject: str, cue: Literal['avatar', 'sticks'], band: Literal['alpha', 'theta'],
+               time_range: Tuple[float, float]):
+    cfg = _import_config(
+        config_path=config_path
+    )
+
+    path = FILE_PATH_TEMPLATE.format(data=cfg.bids_root, sub=subject, cue=cue)
+
+    power = mne.time_frequency.read_tfrs(path, condition=0)
+    power.apply_baseline(
+        baseline=cfg.time_frequency_baseline,
+        mode=cfg.time_frequency_baseline_mode,
+    )
+
+    time_frequency_crop = {
+        'tmin': min(time_range),
+        'tmax': max(time_range),
+        'fmin': min(BANDS[band]),
+        'fmax': max(BANDS[band]),
+    }
+
+    if time_frequency_crop:
+        power.crop(**time_frequency_crop)
+
+    return power

@@ -101,6 +101,7 @@ def ensureRawDataPresent():
         zip_path = getZipFile()
         print("Extracting files...", style=STYLE_DEFAULT)
         unzip(zip_path, DATA_BASE_DIR)
+        unzip(zip_path, DATA_BASE_DIR, prefix="ds003702/derivatives/BehaviouralData_TableStudyVR")
         print("Extraction Done.", style=STYLE_DEFAULT)
 
 
