@@ -7497,6 +7497,9 @@ On all computers, Python 3.10 or 3.11 - e. g. Python 3.11.8 - was installed fo
 <li><code>pip install -r &lt;textfile&gt;</code> (or depending on the installation <code>python3 -m pip …</code>) installs the module dependencies in the versions with which this notebook was created.</li>
 <li>With these module versions combined with Python 3.11.8, the notebook was tested and running. With other versions, errors can occur. One example of a problem caused by non-matching versions is the changed step naming of different <code>mne-bids-pipeline</code> versions.</li>
 </ul>
+<h2 id="Note-Regarding-venv">Note Regarding <code>venv</code><a class="anchor-link" href="#Note-Regarding-venv">¶</a></h2><p>If a <code>venv</code> environment is used, <code>pip</code> should here get replaced by <code>/path/to/venv/bin/python -m pip</code>.
+In this case, the MNE BIDS pipeline also either needs to get replaced, or needs to get added to the system search path.
+This is possible e. g. by creating a symbolic link (e. g. via running <code>sudo ln --symbolic /path/to/venv/bin/mne_bids_pipeline /bin/</code> on Linux systems).</p>
 </div>
 </div>
 </div>
@@ -10925,7 +10928,21 @@ Therefore, we can start running the pipeline based on the configuration file.</p
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>/bin/bash: line 1: mne_bids_pipeline: command not found
+<pre><span class="ansi-green-intense-fg ansi-bold">┌────────┬ Welcome aboard MNE-BIDS-Pipeline! 👋</span> <span class="ansi-green-intense-fg ansi-bold">────────────────────────────────</span>
+<span class="ansi-green-fg">│</span><span class="ansi-green-intense-fg ansi-bold">22:40:09</span><span class="ansi-green-fg">│ </span><span class="ansi-cyan-intense-fg ansi-bold">📝 </span>Using configuration: .<span class="ansi-magenta-fg">/mne-bids/config/</span><span class="ansi-magenta-intense-fg">mne-bids-pipeline.py</span>
+<span class="ansi-green-intense-fg ansi-bold">└────────┴ </span>
+<span class="ansi-green-intense-fg ansi-bold">┌────────┬ init/_01_init_derivatives_dir</span> <span class="ansi-green-intense-fg ansi-bold">───────────────────────────────────────</span>
+<span class="ansi-green-fg">│</span><span class="ansi-green-intense-fg ansi-bold">22:40:09</span><span class="ansi-green-fg">│ </span><span class="ansi-cyan-intense-fg ansi-bold">✅ </span>Output directories already exist …
+<span class="ansi-green-intense-fg ansi-bold">└────────┴ done </span><span class="ansi-green-intense-fg ansi-bold">(</span><span class="ansi-green-intense-fg ansi-bold">1s</span><span class="ansi-green-intense-fg ansi-bold">)</span>
+<span class="ansi-green-intense-fg ansi-bold">┌────────┬ init/_02_find_empty_room</span> <span class="ansi-green-intense-fg ansi-bold">────────────────────────────────────────────</span>
+<span class="ansi-green-fg">│</span><span class="ansi-green-intense-fg ansi-bold">22:40:10</span><span class="ansi-green-fg">│ </span><span class="ansi-cyan-intense-fg ansi-bold">⏩ </span>Skipping, empty-room data only relevant for MEG …
+<span class="ansi-green-intense-fg ansi-bold">└────────┴ done </span><span class="ansi-green-intense-fg ansi-bold">(</span><span class="ansi-green-intense-fg ansi-bold">1s</span><span class="ansi-green-intense-fg ansi-bold">)</span>
+<span class="ansi-green-intense-fg ansi-bold">┌────────┬ init/_01_init_derivatives_dir</span> <span class="ansi-green-intense-fg ansi-bold">───────────────────────────────────────</span>
+<span class="ansi-green-fg">│</span><span class="ansi-green-intense-fg ansi-bold">22:40:10</span><span class="ansi-green-fg">│ </span><span class="ansi-cyan-intense-fg ansi-bold">✅ </span>Output directories already exist …
+<span class="ansi-green-intense-fg ansi-bold">└────────┴ done </span><span class="ansi-green-intense-fg ansi-bold">(</span><span class="ansi-green-intense-fg ansi-bold">1s</span><span class="ansi-green-intense-fg ansi-bold">)</span>
+<span class="ansi-green-intense-fg ansi-bold">┌────────┬ init/_02_find_empty_room</span> <span class="ansi-green-intense-fg ansi-bold">────────────────────────────────────────────</span>
+<span class="ansi-green-fg">│</span><span class="ansi-green-intense-fg ansi-bold">22:40:10</span><span class="ansi-green-fg">│ </span><span class="ansi-cyan-intense-fg ansi-bold">⏩ </span>Skipping, empty-room data only relevant for MEG …
+<span class="ansi-green-intense-fg ansi-bold">└────────┴ done </span><span class="ansi-green-intense-fg ansi-bold">(</span><span class="ansi-green-intense-fg ansi-bold">1s</span><span class="ansi-green-intense-fg ansi-bold">)</span>
 </pre>
 </div>
 </div>
