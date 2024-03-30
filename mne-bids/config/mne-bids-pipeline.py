@@ -1615,7 +1615,14 @@ locations set.
 # TIME-FREQUENCY
 # --------------
 
-time_frequency_conditions: Iterable[str] = ["avatar", "sticks"] # ["s3022", "s3042"]
+time_frequency_conditions: Iterable[str] = ["avatar", "sticks",
+                                            "Congruence=='Incongruent'",
+                                            "Congruence=='Congruent'",
+                                            "Congruence=='Incongruent' and event_name=='sticks'",
+                                            "Congruence=='Incongruent' and event_name=='avatar'",
+                                            "Congruence=='Congruent' and event_name=='sticks'",
+                                            "Congruence=='Congruent' and event_name=='avatar'",
+                                            "event_name=='sticks' or event_name=='avatar'"] # ["s3022", "s3042"]
 """
 The conditions to compute time-frequency decomposition on.
 
