@@ -947,7 +947,7 @@ can be used for resampling raw data. `1` means no decimation.
 # rename_events: dict = dict()
 rename_events: dict = {
     "s3021": "avatar",
-    "s3041": "sticks"
+    "s3041": "sticks",
 }
 """
 A dictionary specifying which events in the BIDS dataset to rename upon
