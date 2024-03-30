@@ -947,7 +947,7 @@ can be used for resampling raw data. `1` means no decimation.
 # rename_events: dict = dict()
 rename_events: dict = {
     "s3021": "avatar",
-    "s3041": "sticks"
+    "s3041": "sticks",
 }
 """
 A dictionary specifying which events in the BIDS dataset to rename upon
@@ -1625,7 +1625,7 @@ The conditions to compute time-frequency decomposition on.
     ```
 """
 
-time_frequency_freq_min: Optional[float] = 8.0
+time_frequency_freq_min: Optional[float] = 3.0
 """
 Minimum frequency for the time frequency analysis, in Hz.
 ???+ example "Example"
@@ -2115,7 +2115,7 @@ in the report. If `None`, it defaults to the current default in MNE-Python.
 # Execution
 # ---------
 
-n_jobs: int = 6
+n_jobs: int = 28
 """
 Specifies how many subjects you want to process in parallel. If `1`, disables
 parallel processing.

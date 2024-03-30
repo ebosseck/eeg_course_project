@@ -141,6 +141,7 @@ def unzip(filename: str, base_path: str, prefix: Optional[str] = "ds003702/sub")
                 continue
             if prefix is not None:
                 if not info.filename.startswith(prefix):
+                    print(info.filename)
                     continue
             writeFileBinary("".join([base_path, info.filename]), zip_file.read(info, None))
 
