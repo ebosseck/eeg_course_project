@@ -2122,7 +2122,7 @@ in the report. If `None`, it defaults to the current default in MNE-Python.
 # Execution
 # ---------
 
-n_jobs: int = 28
+n_jobs: int = 6 # Set this to max. the number of CPU cores. (e.g. 6 for 6 core CPU)
 """
 Specifies how many subjects you want to process in parallel. If `1`, disables
 parallel processing.
