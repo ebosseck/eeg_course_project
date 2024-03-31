@@ -167,9 +167,9 @@ plotting.
 # # For debugging purposes, select subset of subjects
 subjects_range = [1, 50] # valid: 1..50
 subjects_skipped = [5, 20, 29, 31, 36, 37]
-#   #  5: high voltage → peak2peak rejection removes all epochs
-#   # 20: high voltage → peak2peak rejection removes all epochs
-#   # 29: high voltage → peak2peak rejection removes all epochs
+#   #  5: high voltage → peak2peak rejection before ICA removes all epochs
+#   # 20: high voltage → peak2peak rejection before ICA removes all epochs
+#   # 29: high voltage → peak2peak rejection before ICA removes all epochs
 #   # 31: reaction to stimulus before visibility of object
 #   # 36: low amplitudes
 #   # 37: unknown compilation problem
